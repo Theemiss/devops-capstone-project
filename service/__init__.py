@@ -19,7 +19,7 @@ from service import routes, models  # noqa: F401 E402
 
 # pylint: disable=wrong-import-position
 from service.common import error_handlers, cli_commands  # noqa: F401 E402
-
+from flask_cors import CORS
 # Set up logging for production
 log_handlers.init_logging(app, "gunicorn.error")
 
@@ -27,6 +27,7 @@ app.logger.info(70 * "*")
 app.logger.info("  A C C O U N T   S E R V I C E   R U N N I N G  ".center(70, "*"))
 app.logger.info(70 * "*")
 talisman = Talisman(app)
+CORS(app)
 try:
     models.init_db(app)  # make our database tables
 except Exception as error:  # pylint: disable=broad-except
